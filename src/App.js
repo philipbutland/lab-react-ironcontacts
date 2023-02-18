@@ -18,8 +18,46 @@ function App() {
 
   }
 
+
+  function sortByName(){
+    const tempArr = [...newContacts]
+
+    tempArr.sort((a,b)=> {
+      if(a.name > b.name){
+        return 1
+      }else if (a.name < b.name){
+        return -1
+      }
+      return 0
+    })
+
+    setNewContacts(tempArr)
+  }
+
+
+  function sortByPopularity(){
+    const tempArr = [...newContacts]
+    tempArr.sort((a,b)=>  b.popularity - a.popularity)
+    setNewContacts(tempArr)
+  }
   return (
     <div className="App">
+    <h1>IronContacts</h1>
+
+      <button
+        onClick={() => {
+          sortByName();
+        }}
+      >
+        Sort by name
+      </button>
+      <button
+        onClick={() => {
+          sortByPopularity();
+        }}
+      >
+        Sort by popularity
+      </button>
       <button
         onClick={() => {
           AddContact();
