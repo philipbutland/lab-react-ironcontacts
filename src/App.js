@@ -10,9 +10,6 @@ function App() {
 
   function AddContact() {
     const random = Contacts[Math.floor(Math.random() * Contacts.length)];
-    // console.log("Math: ", Math.floor(Math.random() * Contacts.length), Contacts.length)
-    console.log(random);
-    console.log(displayContacts);
     setNewContacts(prevContacts => {
       const newList = [random, ...prevContacts]
 
@@ -23,7 +20,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <button>Add Random Contact</button> */}
       <button
         onClick={() => {
           AddContact();
@@ -37,6 +33,8 @@ function App() {
           <th>Picture</th>
           <th>Name</th>
           <th>Popularity</th>
+          <th>Won an Oscar</th>
+          <th>Won an Emmy</th>
         </tr>
         {newContacts.map((contact) => {
           return <Celebrity contact={contact}></Celebrity>;
