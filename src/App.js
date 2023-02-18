@@ -10,79 +10,74 @@ function App() {
 
   function AddContact() {
     const random = Contacts[Math.floor(Math.random() * Contacts.length)];
-    setNewContacts(prevContacts => {
-      const newList = [random, ...prevContacts]
+    setNewContacts((prevContacts) => {
+      const newList = [random, ...prevContacts];
+      return newList;
+    });
+  }
 
-      return newList
+  function sortByName() {
+    const tempArr = [...newContacts];
+
+    tempArr.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      } else if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
     });
 
+    setNewContacts(tempArr);
   }
 
-
-  function sortByName(){
-    const tempArr = [...newContacts]
-
-    tempArr.sort((a,b)=> {
-      if(a.name > b.name){
-        return 1
-      }else if (a.name < b.name){
-        return -1
-      }
-      return 0
-    })
-
-    setNewContacts(tempArr)
+  function sortByPopularity() {
+    const tempArr = [...newContacts];
+    tempArr.sort((a, b) => b.popularity - a.popularity);
+    setNewContacts(tempArr);
   }
 
+  function deleteContact(contactId) {
+    const tempArr = [...newContacts];
 
-  function sortByPopularity(){
-    const tempArr = [...newContacts]
-    tempArr.sort((a,b)=>  b.popularity - a.popularity)
-    setNewContacts(tempArr)
-  }
-
-
-  function deleteContact(contactId){
-    const tempArr = [...newContacts]
-    
-    const filteredContacts = tempArr.filter(contact => {
+    const filteredContacts = tempArr.filter((contact) => {
       return contact.id !== contactId;
     });
 
-    console.log(filteredContacts)
-    setNewContacts(filteredContacts)
+    console.log(filteredContacts);
+    setNewContacts(filteredContacts);
   }
-
 
   return (
     <div className="App">
-    <h1>IronContacts</h1>
+      <h1>IronContacts</h1>
 
-      <button
-        onClick={() => {
-          sortByName();
-        }}
-      >
-        Sort by name
-      </button>
-      <button
-        onClick={() => {
-          sortByPopularity();
-        }}
-      >
-        Sort by popularity
-      </button>
-      <button
-        onClick={() => {
-          AddContact();
-        }}
-      >
-        Add Random Contact
-      </button>
-
-
+      <div className="buttons">
+        <button
+          onClick={() => {
+            sortByName();
+          }}
+        >
+          Sort by name
+        </button>
+        <button
+          onClick={() => {
+            sortByPopularity();
+          }}
+        >
+          Sort by popularity
+        </button>
+        <button
+          onClick={() => {
+            AddContact();
+          }}
+        >
+          Add Random Contact
+        </button>
+      </div>
 
       <table>
+      <thead>
         <tr>
           <th>Picture</th>
           <th>Name</th>
@@ -91,9 +86,18 @@ function App() {
           <th>Won an Emmy</th>
           <th>Remove Contact</th>
         </tr>
+        </thead>
+        <tbody>
         {newContacts.map((contact) => {
-          return <Celebrity key={contact.id} contact={contact} clickToDelete={()=> deleteContact(contact.id)}></Celebrity>;
+          return (
+            <Celebrity
+              key={contact.id}
+              contact={contact}
+              clickToDelete={() => deleteContact(contact.id)}
+            ></Celebrity>
+          );
         })}
+        </tbody>
       </table>
     </div>
   );
