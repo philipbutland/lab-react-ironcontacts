@@ -40,6 +40,20 @@ function App() {
     tempArr.sort((a,b)=>  b.popularity - a.popularity)
     setNewContacts(tempArr)
   }
+
+
+  function deleteContact(contactId){
+    const tempArr = [...newContacts]
+    
+    const filteredContacts = tempArr.filter(contact => {
+      return contact.id !== contactId;
+    });
+
+    console.log(filteredContacts)
+    setNewContacts(filteredContacts)
+  }
+
+
   return (
     <div className="App">
     <h1>IronContacts</h1>
@@ -66,6 +80,8 @@ function App() {
         Add Random Contact
       </button>
 
+
+
       <table>
         <tr>
           <th>Picture</th>
@@ -73,11 +89,11 @@ function App() {
           <th>Popularity</th>
           <th>Won an Oscar</th>
           <th>Won an Emmy</th>
+          <th>Remove Contact</th>
         </tr>
         {newContacts.map((contact) => {
-          return <Celebrity contact={contact}></Celebrity>;
+          return <Celebrity key={contact.id} contact={contact} clickToDelete={()=> deleteContact(contact.id)}></Celebrity>;
         })}
-        {/* {newContacts.name} */}
       </table>
     </div>
   );

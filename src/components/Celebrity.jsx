@@ -1,5 +1,5 @@
 function Celebrity(prop){
-    const {contact} = prop 
+    const {contact, clickToDelete} = prop 
     return (
         <tr>
             <td><img src={contact.pictureUrl}></img></td>
@@ -7,6 +7,7 @@ function Celebrity(prop){
             <td>{contact.popularity}</td>
             <td>{contact.wonOscar ? "🏆" : ""}</td>
             <td>{contact.wonEmmy ? "🏆" : ""}</td>
+            <td><button onClick={clickToDelete }>🗑️</button></td>
         </tr>
     ) 
 }
