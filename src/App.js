@@ -3,17 +3,17 @@ import Contacts from "./contacts.json";
 import Celebrity from "./components/Celebrity";
 import { useState } from "react";
 
-const displayContacts = Contacts.slice(0, 5);
+const firstFive = Contacts.slice(0, 5);
 
 function App() {
-  const [newContacts, setNewContacts] = useState(displayContacts);
+  const [newContacts, setNewContacts] = useState(firstFive);
 
   function AddContact() {
-    const random = Contacts[Math.floor(Math.random() * Contacts.length)];
-    setNewContacts((prevContacts) => {
-      const newList = [random, ...prevContacts];
-      return newList;
-    });
+    const randomIndex = Math.floor(Math.random() * Contacts.length);
+    const spreadedContacts = [...newContacts]
+    spreadedContacts.push(Contacts[randomIndex])
+    // duplicates not treated in this lab. but eventually we could be splicing 
+    setNewContacts(spreadedContacts);
   }
 
   function sortByName() {
